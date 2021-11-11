@@ -48,6 +48,14 @@ public class Perfil {
 
 
 
+	@Override
+	public String toString() {
+		return "ID: " + id + "\n Perfil " + perfil ;
+	}
+
+
+
+
 	
 	
 	
