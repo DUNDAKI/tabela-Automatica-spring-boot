@@ -8,7 +8,7 @@ import com.vigjoaopaulo.gmail.com.model.Perfil;
 @Repository
 public interface PerfilRepository  extends JpaRepository<Perfil, Long>{
 
-	boolean existsByPerfil(Perfil perfil);
+	Perfil existsByPerfil(Perfil perfil);
 
 	boolean existsById(int id);
 

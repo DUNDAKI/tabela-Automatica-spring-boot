@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,49 +31,40 @@ public class PerfilController {
 		return repository.existsById(id);
 	}
 
-	public boolean verificarPorNome(Perfil perfil) {
-		return repository.existsByPerfil(perfil);
-	}
 
-	@GetMapping("/admim")
+	@GetMapping("/buscaPerfil")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Perfil> getPerfil() {
 		return repository.findAll();
 	}
 	
 
-	@PostMapping("/admim")
+	@PostMapping("/inserir")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addPerfil(@RequestBody Perfil perfil) {
-		 
-		repository.findById(perfil.getId());
 		
-		if(verificarPorId(null))
-
 		repository.save(perfil);
-
+		
 		return "Inserido com sucesso id: ";
 
 	}
 
-	@GetMapping("/admim/{id}")
+	@GetMapping("/buscarId/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String getId(@PathVariable Long id) {
 
 		if (verificarPorId(id) != true) {
 			return "Registro não encontrado...";
 		} else {
-			List<Perfil> lista = new ArrayList<>();
+			
 			Perfil p = repository.findById(id).get();
-			p.getId();
-			p.getPerfil();
-			lista.add(p);
+			
 
-			return "" + lista;
+			return "" + p;
 		}
 	}
 
-	@DeleteMapping("/admim/{id}")
+	@DeleteMapping("/delete/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String deletePerfil(@PathVariable Long id) {
 
@@ -85,18 +77,30 @@ public class PerfilController {
 
 	}
 
-	@PutMapping("/admim/{id}")
+	@PutMapping("/atualizar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String updatePerfil(@PathVariable Long id, @RequestBody Perfil perfil) {
+	public String updatePerfil(@PathVariable Long id, @RequestBody Perfil perfil) {		
+		
+		if (verificarPorId(id) != true) {
+			return "Registro não encontrado";
+		} else {
+			Perfil newObj = repository.findById(id).get();
+			newObj.setPerfil(perfil.getPerfil());
+			repository.save(newObj);
+			return "Deletado com sucesso id: " + id;
+		}
+		
+			
 
-		Perfil newObj = repository.findById(id).get();
+			
 
-		newObj.setPerfil(perfil.getPerfil());
+			//return "Atualizado com sucesso id: " + id;
+		
 
-		repository.save(newObj);
-
-		return "Atualizado com sucesso id: " + id;
+		
 
 	}
 
+	
+	
 }
