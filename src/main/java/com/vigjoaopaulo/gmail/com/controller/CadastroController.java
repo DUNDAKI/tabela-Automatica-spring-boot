@@ -19,7 +19,7 @@ import com.vigjoaopaulo.gmail.com.model.Cadastro;
 import com.vigjoaopaulo.gmail.com.repository.CadastroRepository;
 
 @RestController
-@RequestMapping
+@RequestMapping("/cadastro")
 public class CadastroController {
 
 	@Autowired
@@ -28,13 +28,10 @@ public class CadastroController {
 	public boolean verificarPorId(Long id) {
 		return repository.existsById(id);
 	}
-	
-	public boolean verficaApelido(Cadastro apelido) {
-		
-		return repository.existsByApelido(apelido);
-	}
-	
-	
+
+//	public boolean verica(String apelido) {
+//		return repository.existsByApelido(apelido);
+//	}
 
 	@GetMapping("/listar")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -42,18 +39,15 @@ public class CadastroController {
 		return repository.findAll();
 	}
 
+
 	@PostMapping("/inserir")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String add(@RequestBody Cadastro cad) {	
-		
-		
+	public String add(@RequestBody Cadastro cad) {			
 		//por default todos usuarios serão usuario
 		cad.setPerfil("usuario");
 		repository.save(cad);
 
-		return "Inserido com sucesso id: ";	
-			
-	
+		return "Inserido com sucesso id: " + cad.getApelido();	
 		
 	}
 
@@ -67,7 +61,7 @@ public class CadastroController {
 
 			Cadastro p = repository.findById(id).get();
 
-			return "" + p;
+			return " "+ p;
 		}
 	}
 
@@ -92,9 +86,13 @@ public class CadastroController {
 			return "Registro não encontrado";
 		} else {
 			Cadastro newObj = repository.findById(id).get();
+			newObj.setApelido(cad.getApelido());
+			newObj.setEmail(cad.getEmail());
 			newObj.setNome(cad.getNome());
+			newObj.setSenha(cad.getSenha());
+			
 			repository.save(newObj);
-			return "Deletado com sucesso id: " + id;
+			return "Atualizado com sucesso id: " + id;
 		}
 	}
 

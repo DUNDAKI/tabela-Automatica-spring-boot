@@ -97,8 +97,8 @@ public class Cadastro {
 
 	@Override
 	public String toString() {
-		return "Cadastro [id=" + id + ", apelido=" + apelido + ", email=" + email + ", nome=" + nome + ", senha="
-				+ senha + ", perfil=" + perfil + "]";
+		return "id = " + id + "\napelido = " + apelido + "\nemail = " + email + "\nnome = " + nome + "\nsenha = "
+				+ senha + "\nperfil = " + perfil;
 	}
 
 	
