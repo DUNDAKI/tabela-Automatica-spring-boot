@@ -1,6 +1,7 @@
 package com.vigjoaopaulo.gmail.com.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,34 +15,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vigjoaopaulo.gmail.com.model.Perfil;
-import com.vigjoaopaulo.gmail.com.repository.PerfilRepository;
+import com.vigjoaopaulo.gmail.com.model.Cadastro;
+import com.vigjoaopaulo.gmail.com.repository.CadastroRepository;
 
 @RestController
-@RequestMapping("/perfil")
-public class PerfilController {
+@RequestMapping
+public class CadastroController {
 
 	@Autowired
-	private PerfilRepository repository;
+	private CadastroRepository repository;
 
 	public boolean verificarPorId(Long id) {
 		return repository.existsById(id);
 	}
+	
+	public boolean verficaApelido(Cadastro apelido) {
+		
+		return repository.existsByApelido(apelido);
+	}
+	
+	
 
 	@GetMapping("/listar")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<Perfil> getPerfil() {
+	public List<Cadastro> getCad() {
 		return repository.findAll();
 	}
 
 	@PostMapping("/inserir")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addPerfil(@RequestBody Perfil perfil) {
+	public String add(@RequestBody Cadastro cad) {	
+		
+		
+		//por default todos usuarios serão usuario
+		cad.setPerfil("usuario");
+		repository.save(cad);
 
-		repository.save(perfil);
-
-		return "Inserido com sucesso id: ";
-
+		return "Inserido com sucesso id: ";	
+			
+	
+		
 	}
 
 	@GetMapping("/buscarId/{id}")
@@ -52,7 +65,7 @@ public class PerfilController {
 			return "Registro não encontrado...";
 		} else {
 
-			Perfil p = repository.findById(id).get();
+			Cadastro p = repository.findById(id).get();
 
 			return "" + p;
 		}
@@ -73,13 +86,13 @@ public class PerfilController {
 
 	@PutMapping("/atualizar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String updatePerfil(@PathVariable Long id, @RequestBody Perfil perfil) {
+	public String edit(@PathVariable Long id, @RequestBody Cadastro cad) {
 
 		if (verificarPorId(id) != true) {
 			return "Registro não encontrado";
 		} else {
-			Perfil newObj = repository.findById(id).get();
-			newObj.setPerfil(perfil.getPerfil());
+			Cadastro newObj = repository.findById(id).get();
+			newObj.setNome(cad.getNome());
 			repository.save(newObj);
 			return "Deletado com sucesso id: " + id;
 		}

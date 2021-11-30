@@ -20,14 +20,19 @@ public class Perfil {
 	
 	@Column(name="perfil", nullable = false)
 	private String perfil;
-	
+	@Column(name="nome", nullable = false)
+	private String nome;
 	
 	public Perfil() {
 		
 	}
-	
-	
-	
+
+	public Perfil(Long id, String perfil, String nome) {
+		super();
+		this.id = id;
+		this.perfil = perfil;
+		this.nome = nome;
+	}
 
 	public Long getId() {
 		return id;
@@ -45,20 +50,18 @@ public class Perfil {
 		this.perfil = perfil;
 	}
 
+	public String getNome() {
+		return nome;
+	}
 
-
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	@Override
 	public String toString() {
-		return "ID: " + id + "\nPerfil: " + perfil ;
-	}
-
-
-
+		return "Perfil [id=" + id + ", perfil=" + perfil + ", nome=" + nome + "]";
+	}	
 
 	
-	
-	
-	
-
 }
