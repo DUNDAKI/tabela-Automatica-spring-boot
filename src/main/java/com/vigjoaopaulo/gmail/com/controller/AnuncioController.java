@@ -1,7 +1,6 @@
 package com.vigjoaopaulo.gmail.com.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,51 +14,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vigjoaopaulo.gmail.com.model.Cadastro;
-import com.vigjoaopaulo.gmail.com.repository.CadastroRepository;
+import com.vigjoaopaulo.gmail.com.model.Anuncios;
+import com.vigjoaopaulo.gmail.com.repository.AnuncioRepository;
 
 @RestController
-@RequestMapping("/cadastro")
-public class CadastroController {
-
+@RequestMapping("/anuncio")
+public class AnuncioController {
+	
 	@Autowired
-	private CadastroRepository repository;
-
+	private AnuncioRepository repository;
+	
 	public boolean verificarPorId(Long id) {
 		return repository.existsById(id);
 	}
-
-//	public boolean verica(String apelido) {
-//		return repository.existsByApelido(apelido);
-//	}
-
+	
 	@GetMapping("/listar")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<Cadastro> getCad() {
+	public List<Anuncios> getPerfil() {
 		return repository.findAll();
 	}
 
-
 	@PostMapping("/inserir")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String add(@RequestBody Cadastro cad) {			
-		//por default todos usuarios serão usuario		
-		
-		
-		if(repository.existsByApelido(cad)) {
-			return "já existe";	
-		}else {
-			cad.setPerfil("usuario");
-			repository.save(cad);
+	public String addPerfil(@RequestBody Anuncios anuncio) {
 
-			return "Inserido com sucesso id: " + cad.getApelido();
-		}
-		
-		
-			
-		
+		repository.save(anuncio);
+		return "Inserido com sucesso id: ";
+
 	}
-
+	
 	@GetMapping("/buscarId/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String getId(@PathVariable Long id) {
@@ -68,9 +51,9 @@ public class CadastroController {
 			return "Registro não encontrado...";
 		} else {
 
-			Cadastro p = repository.findById(id).get();
+			Anuncios p = repository.findById(id).get();
 
-			return " "+ p;
+			return "" + p;
 		}
 	}
 
@@ -89,19 +72,20 @@ public class CadastroController {
 
 	@PutMapping("/atualizar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String edit(@PathVariable Long id, @RequestBody Cadastro cad) {
+	public String updatePerfil(@PathVariable Long id, @RequestBody Anuncios anuncio) {
 
 		if (verificarPorId(id) != true) {
 			return "Registro não encontrado";
 		} else {
-			Cadastro newObj = repository.findById(id).get();
-			newObj.setApelido(cad.getApelido());
-			newObj.setEmail(cad.getEmail());
-			newObj.setNome(cad.getNome());
-			newObj.setSenha(cad.getSenha());
+			Anuncios newObj = repository.findById(id).get();
 			
+			newObj.setPosto(anuncio.getPosto());
+			newObj.setNomeComb(anuncio.getNomeComb());
+			newObj.setPreco(anuncio.getPreco());
+			newObj.setEndereco(anuncio.getEndereco());
+			newObj.setNumero(anuncio.getNumero());
 			repository.save(newObj);
-			return "Atualizado com sucesso id: " + id;
+			return "Deletado com sucesso id: " + id;
 		}
 	}
 
