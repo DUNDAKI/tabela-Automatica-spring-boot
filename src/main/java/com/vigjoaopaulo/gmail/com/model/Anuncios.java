@@ -17,110 +17,102 @@ public class Anuncios {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String posto;
-	private String nomeComb;
-	private Double preco;
+	private String nomeEmpresa;
+	private String nomeProduto;
+	private Double preco; 
 	private String endereco;
 	private String numero;
+	private String cidade;
+	private String estado;
 	
 	public Anuncios() {
 		
 	}
 
-	
-
-	public Anuncios(Long id, String posto, String nomeComb, Double preco, String endereco, String numero) {
+	public Anuncios(Long id, String nomeEmpresa, String nomeProduto, Double preco, String endereco, String numero,
+			String cidade, String estado) {
 		super();
 		this.id = id;
-		this.posto = posto;
-		this.nomeComb = nomeComb;
+		this.nomeEmpresa = nomeEmpresa;
+		this.nomeProduto = nomeProduto;
 		this.preco = preco;
 		this.endereco = endereco;
 		this.numero = numero;
+		this.cidade = cidade;
+		this.estado = estado;
 	}
-	
-	
-
-
 
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-
-	public String getPosto() {
-		return posto;
+	public String getNomeEmpresa() {
+		return nomeEmpresa;
 	}
 
-
-
-	public void setPosto(String posto) {
-		this.posto = posto;
+	public void setNomeEmpresa(String nomeEmpresa) {
+		this.nomeEmpresa = nomeEmpresa;
 	}
 
-
-
-	public String getNomeComb() {
-		return nomeComb;
+	public String getNomeProduto() {
+		return nomeProduto;
 	}
 
-
-
-	public void setNomeComb(String nomeComb) {
-		this.nomeComb = nomeComb;
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
 	}
-
-
 
 	public Double getPreco() {
 		return preco;
 	}
 
-
-
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
-
 
 	public String getEndereco() {
 		return endereco;
 	}
 
-
-
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
-
 
 	public String getNumero() {
 		return numero;
 	}
 
-
-
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
+	public String getCidade() {
+		return cidade; 
+	}
 
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
 	@Override
 	public String toString() {
-		return "id = " + id + "\nNome do Posto = " + posto + "\nNome do Combustível = " + nomeComb + "\nEndereço = " + endereco
-				+ "\nPreço = " + preco;
+		return "Anuncios [id=" + id + ", nomeEmpresa=" + nomeEmpresa + ", nomeProduto=" + nomeProduto + ", preco="
+				+ preco + ", endereco=" + endereco + ", numero=" + numero + ", cidade=" + cidade + ", estado=" + estado
+				+ "]";
 	}
-	
+
 	
 
 }
