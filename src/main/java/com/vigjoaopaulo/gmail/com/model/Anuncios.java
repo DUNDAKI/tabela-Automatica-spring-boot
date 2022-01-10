@@ -1,9 +1,12 @@
 package com.vigjoaopaulo.gmail.com.model;
 
+import java.util.Arrays;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -25,12 +28,17 @@ public class Anuncios {
 	private String cidade;
 	private String estado;
 	
+	@Lob
+	private byte[] imagem;
+	
 	public Anuncios() {
 		
 	}
 
+	
+
 	public Anuncios(Long id, String nomeEmpresa, String nomeProduto, Double preco, String endereco, String numero,
-			String cidade, String estado) {
+			String cidade, String estado, byte[] imagem) {
 		super();
 		this.id = id;
 		this.nomeEmpresa = nomeEmpresa;
@@ -39,8 +47,11 @@ public class Anuncios {
 		this.endereco = endereco;
 		this.numero = numero;
 		this.cidade = cidade;
-		this.estado = estado;
+		this.estado = estado;	
+		this.imagem = imagem;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -105,13 +116,28 @@ public class Anuncios {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
+	
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "Anuncios [id=" + id + ", nomeEmpresa=" + nomeEmpresa + ", nomeProduto=" + nomeProduto + ", preco="
 				+ preco + ", endereco=" + endereco + ", numero=" + numero + ", cidade=" + cidade + ", estado=" + estado
-				+ "]";
+				+ ", imagem=" + Arrays.toString(imagem) + "]";
 	}
+
+	
 
 	
 
